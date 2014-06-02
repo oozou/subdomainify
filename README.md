@@ -20,8 +20,20 @@ end
 After marking a resource with `subdomainify`, a `url_for` call to that resource will automatically generate a subdomain route instead of a normal route. For example:
 
 ```ruby
-blogs_url(@blog) # => http://foo.example.com/
+@blog            # => #<Blog id: 1, user_id: 1, name: "My Example Blog", slug: "foo">
+@blog.to_param   # => "foo"
+blog_url(@blog)  # => "http://foo.example.com/"
 ```
+
+Or even for nested resources:
+
+```ruby
+@article                           # => #<Article id: 1, user_id: 1, title: "Lorem ipsum", slug: "lorem-ipsum", body: "Dolor sit amet">
+@article.to_param                  # => "lorem-ipsum"
+blog_article_url(@blog, @article)  # => "http://foo.example.com/articles/lorem-ipsum"
+```
+
+### How it works
 
 Subdomainify works by rewriting a subdomain URL to the specific route using a Rack middleware. In the above example, the resource URL for `blogs` resource is located at `example.com/blogs/:id`. When user visit `foo.example.com`, Subdomainify will rewrite that request into `example.com/blogs/foo`. This includes everything else that was passed in as the path. For example, when user visited this URL:
 
@@ -29,13 +41,24 @@ Subdomainify works by rewriting a subdomain URL to the specific route using a Ra
 http://foo.example.com/articles/hello-world
 ```
 
-This middleware will rewrite `PATH_INFO` into:
+The middleware will rewrite `PATH_INFO` into:
 
 ```
-http://foo.example.com/blogs/foo/articles/hello-world/
+http://foo.example.com/blogs/foo/articles/hello-world
 ```
 
-Which means on the application side, you can treat subdomain routes like any other routes.
+Which means on the application side, you can treat subdomain routes like any other routes. Please note even after rewriting, subdomain is not discarded, this is to allow usage of it in constraint:
+
+```ruby
+constraints ->(req) { req.subdomain.present? } do
+  resources :blogs, subdomainify: true do
+    resources :articles
+    resources :comments
+  end
+end
+```
+
+Doing so will make this route accessible only when user visited from subdomain URL.
 
 ## License
 
