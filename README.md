@@ -4,7 +4,7 @@ Subdomainify is a subdomain rewriting middleware for your Rails 4 app.
 
 ## Installation
 
-    gem "pundit"
+    gem "subdomainify"
 
 TODO: more
 
