@@ -1,4 +1,4 @@
-# Subdomainify
+# Subdomainify [![Build Status](http://img.shields.io/travis/oozou/subdomainify.svg)](http://travis-ci.org/oozou/subdomainify)
 
 Subdomainify is a subdomain rewriting middleware for your Rails 4 app.
 
