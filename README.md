@@ -4,7 +4,9 @@ Subdomainify is a subdomain rewriting middleware for your Rails 4 app.
 
 ## Installation
 
-Coming soon!
+    gem "pundit"
+
+TODO: more
 
 ## Usage
 
@@ -25,7 +27,7 @@ After marking a resource with `subdomainify`, a `url_for` call to that resource 
 blog_url(@blog)  # => "http://foo.example.com/"
 ```
 
-Or even for nested resources:
+This also works for nested resources:
 
 ```ruby
 @article                           # => #<Article id: 1, user_id: 1, title: "Lorem ipsum", slug: "lorem-ipsum", body: "Dolor sit amet">
@@ -35,7 +37,7 @@ blog_article_url(@blog, @article)  # => "http://foo.example.com/articles/lorem-i
 
 ### How it works
 
-Subdomainify works by rewriting a subdomain URL to the specific route using a Rack middleware. In the above example, the resource URL for `blogs` resource is located at `example.com/blogs/:id`. When user visit `foo.example.com`, Subdomainify will rewrite that request into `example.com/blogs/foo`. This includes everything else that was passed in as the path. For example, when user visited this URL:
+Subdomainify works by rewriting a subdomain URL to the specific route using a Rack middleware. In the above example, the resource URL for the `blogs` resource is located at `example.com/blogs/:id`. When users visit `foo.example.com`, Subdomainify will rewrite that request into `example.com/blogs/foo`. This includes everything else that was passed in as the path. For example, when users visit this URL:
 
 ```
 http://foo.example.com/articles/hello-world
@@ -47,7 +49,7 @@ The middleware will rewrite `PATH_INFO` into:
 http://foo.example.com/blogs/foo/articles/hello-world
 ```
 
-Which means on the application side, you can treat subdomain routes like any other routes. Please note even after rewriting, subdomain is not discarded, this is to allow usage of it in constraint:
+Which means on the application side, you can treat subdomain routes like any other routes. Please note that even after rewriting, the subdomain is not discarded, allowing for its usage in constraints:
 
 ```ruby
 constraints ->(req) { req.subdomain.present? } do
@@ -58,7 +60,7 @@ constraints ->(req) { req.subdomain.present? } do
 end
 ```
 
-Doing so will make this route accessible only when user visited from subdomain URL.
+Doing so will make this route accessible only when visited from subdomain URL.
 
 ## License
 
