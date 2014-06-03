@@ -1,3 +1,5 @@
+require 'rails'
+
 module Subdomainify
 
   # Private: Middleware for rewriting PATH_INFO from subdomain.
@@ -36,7 +38,7 @@ module Subdomainify
 
       if request.subdomain.present? && request.subdomain != 'www'
         _route = routes.routes.select { |r| r.defaults[:subdomainify] }.last
-        if !request.path_info.starts_with?('/assets/') && _route.present?
+        if !request.path_info.start_with?('/assets/') && _route.present?
           env['PATH_INFO'] = [
             _route.format(id: request.subdomain),
             request.path_info,
@@ -91,7 +93,7 @@ module Subdomainify
         # Use route with highest precedence value (i.e. shortest route).
         # TODO: Better ways to detect part name for nested resource?
         subroute = @set.select { |route| route.defaults[:subdomainify] }.last
-        name = subroute.defaults[:controller].split("/").last.to_s.singularize
+        name = subroute.defaults[:controller].split('/').last.to_s.singularize
         name = subroute.name if subroute.name.present?
         subdomain_id = options[:"#{name}_id"] || options[:id]
 
