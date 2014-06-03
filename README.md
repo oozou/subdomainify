@@ -4,9 +4,11 @@ Subdomainify is a subdomain rewriting middleware for your Rails 4 app.
 
 ## Installation
 
-    gem "subdomainify"
+In a **Rails 4** app, add this to your Gemfile and run the `bundle` command:
 
-TODO: more
+```ruby
+gem "subdomainify"
+```
 
 ## Usage
 
