@@ -1,0 +1,7 @@
+<h2><%= link_to @blog.name, blog_path(@blog) %></h2>
+
+<ul>
+<% @articles.each do |article| %>
+  <li><%= link_to article.title, blog_article_path(@blog, article) %></li>
+<% end %>
+</ul>

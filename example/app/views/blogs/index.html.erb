@@ -1,0 +1,5 @@
+<ul>
+<% @blogs.each do |blog| %>
+  <li><%= link_to blog.name, blog_path(blog) %></li>
+<% end %>
+</ul>

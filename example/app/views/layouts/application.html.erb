@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Example</title>
+</head>
+<body>
+
+<h1><%= link_to "Example", root_path %></h1>
+
+<hr>
+
+<%= yield %>
+
+<hr>
+
+<em>Note, you may have to use <%= link_to "lvh.me", root_url(domain: "lvh.me") %> for this example to work.</em>
+
+<pre>
+params: <%= params.inspect %>
+path: <%= request.fullpath %>
+</pre>
+
+</body>
+</html>
