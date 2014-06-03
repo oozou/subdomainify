@@ -24,17 +24,19 @@ end
 After marking a resource with `subdomainify`, a `url_for` call to that resource will automatically generate a subdomain route instead of a normal route. For example:
 
 ```ruby
-@blog            # => #<Blog id: 1, user_id: 1, name: "My Example Blog", slug: "foo">
-@blog.to_param   # => "foo"
-blog_url(@blog)  # => "http://foo.example.com/"
+@blog             # => #<Blog id: 1, user_id: 1, name: "My Example Blog", slug: "foo">
+@blog.to_param    # => "foo"
+blog_url(@blog)   # => "http://foo.example.com/"
+blog_path(@blog)  # => "http://foo.example.com/"
 ```
 
 This also works for nested resources:
 
 ```ruby
-@article                           # => #<Article id: 1, user_id: 1, title: "Lorem ipsum", slug: "lorem-ipsum", body: "Dolor sit amet">
-@article.to_param                  # => "lorem-ipsum"
-blog_article_url(@blog, @article)  # => "http://foo.example.com/articles/lorem-ipsum"
+@article                            # => #<Article id: 1, user_id: 1, title: "Lorem ipsum", slug: "lorem-ipsum", body: "Dolor sit amet">
+@article.to_param                   # => "lorem-ipsum"
+blog_article_url(@blog, @article)   # => "http://foo.example.com/articles/lorem-ipsum"
+blog_article_path(@blog, @article)  # => "http://foo.example.com/articles/lorem-ipsum"
 ```
 
 ### How it works
